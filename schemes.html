@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Government Schemes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <h1>🏛️ Government Schemes for Farmers</h1>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="farmers.html">Farmers</a>
+    <a href="schemes.html">Schemes</a>
+    <a href="market.html">Market</a>
+    <a href="advisory.html">Advisory</a>
+    <a href="issues.html">Issues</a>
+    <a href="weather.html">Weather</a>
+    <a href="stories.html">Stories</a>
+
+
+  </nav>
+</header>
+
+
+  <section>
+    <div class="card">
+      <h3>PM-KISAN</h3>
+      <p>Income support of ₹6000/year to all farmer families in three equal installments.</p>
+    </div>
+    <div class="card">
+      <h3>Soil Health Card Scheme</h3>
+      <p>Provides farmers with nutrient status of soil and guidance for improving productivity.</p>
+    </div>
+    <div class="card">
+      <h3>Pradhan Mantri Fasal Bima Yojana</h3>
+      <p>Crop insurance scheme to support farmers facing crop loss due to natural calamities.</p>
+    </div>
+  </section>
+  <!-- Floating Chatbot Widget -->
+<div id="chatWidget" class="chat-widget">
+  <div id="chatHeader" class="chat-header">
+    🤖 Farm Assistant
+    <span id="closeChat" class="close-chat">&times;</span>
+  </div>
+  <div id="chatContent" class="chat-content">
+    <div id="chatBoxWidget" class="chat-box">
+      <div class="bot-message">Hello! I’m your Farm Assistant 🤖. How can I help you today?</div>
+    </div>
+    <div class="quick-suggestions">
+      <button class="suggestion-btn">Weather</button>
+      <button class="suggestion-btn">Crops</button>
+      <button class="suggestion-btn">Irrigation</button>
+      <button class="suggestion-btn">Schemes</button>
+      <button class="suggestion-btn">Pests/Disease</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInputWidget" placeholder="Ask me about crops, irrigation, weather, schemes...">
+      <button id="sendBtnWidget">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Button to open chat -->
+<button id="openChatBtn" class="open-chat-btn">💬 Chat</button>
+
+</body>
+</html>

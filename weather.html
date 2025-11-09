@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Advisory | Farmers & Rural Development</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1>🌾 Farmers & Rural Development</h1>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+    </div>
+    <img src="images/irrigation.jpg" alt="Irrigation" class="banner-img">
+
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="schemes.html">Schemes</a>
+      <a href="market.html">Market</a>
+      <a href="advisory.html">Advisory</a>
+      <a href="issues.html">Issues</a>
+      <a href="weather.html">Weather</a>
+      <a href="stories.html">Stories</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>🌦️ Weather & Irrigation Advisory</h2>
+      <p>Check temperature, rainfall, and humidity to plan your irrigation schedule wisely.</p>
+
+      <div class="card">
+        <input type="text" id="cityInput" placeholder="Enter city name..." />
+        <button id="getWeatherBtn">Get Weather</button>
+      </div>
+
+      <div id="weatherResult" class="card" style="display:none;">
+        <h3 id="location"></h3>
+        <p id="temperature"></p>
+        <p id="humidity"></p>
+        <p id="rainfall"></p>
+        <p id="condition"></p>
+        <p id="advice"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Farmers & Rural Development | Empowering Rural India</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Weather with Rainfall & Humidity Data
+    const weatherBase = "https://api.open-meteo.com/v1/forecast";
+
+    document.getElementById('getWeatherBtn').addEventListener('click', async () => {
+      const city = document.getElementById('cityInput').value.trim();
+      if (!city) return alert("Please enter a city name");
+
+      try {
+        // Get coordinates for the city
+        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`);
+        const geoData = await geoRes.json();
+        if (!geoData.results?.length) return alert("City not found");
+
+        const { latitude, longitude, name, country } = geoData.results[0];
+
+        // Get weather, humidity, and rainfall data
+        const weatherRes = await fetch(`${weatherBase}?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=relative_humidity_2m,precipitation`);
+        const weatherData = await weatherRes.json();
+
+        const temp = weatherData.current_weather.temperature;
+        const conditionCode = weatherData.current_weather.weathercode;
+        const conditionText = getConditionText(conditionCode);
+
+        // Get latest humidity and rainfall data
+        const humidity = weatherData.hourly.relative_humidity_2m.slice(-1)[0];
+        const rainfall = weatherData.hourly.precipitation.slice(-1)[0];
+
+        // Advice generation
+        const advice = getIrrigationAdvice(temp, humidity, rainfall, conditionText);
+
+        // Display data
+        document.getElementById('weatherResult').style.display = 'block';
+        document.getElementById('location').textContent = `${name}, ${country}`;
+        document.getElementById('temperature').textContent = `🌡️ Temperature: ${temp}°C`;
+        document.getElementById('humidity').textContent = `💧 Humidity: ${humidity}%`;
+        document.getElementById('rainfall').textContent = `🌧️ Rainfall: ${rainfall} mm (recent hour)`;
+        document.getElementById('condition').textContent = `🌤️ Condition: ${conditionText}`;
+        document.getElementById('advice').textContent = `🧑‍🌾 Advice: ${advice}`;
+      } catch (error) {
+        console.error(error);
+        alert("Error fetching weather data. Try again later.");
+      }
+    });
+
+    // Translate weather codes to readable text
+    function getConditionText(code) {
+      const map = {
+        0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+        45: "Fog", 48: "Depositing rime fog", 51: "Light drizzle",
+        61: "Rain", 80: "Rain showers", 95: "Thunderstorm"
+      };
+      return map[code] || "Unknown";
+    }
+
+    // Generate irrigation/farming advice
+    function getIrrigationAdvice(temp, humidity, rainfall, condition) {
+      if (rainfall > 2) return "Avoid irrigation today, enough natural rainfall.";
+      if (humidity > 80) return "Postpone irrigation; soil likely moist.";
+      if (humidity < 40 && temp > 30) return "High evapotranspiration: irrigate early morning or late evening.";
+      if (condition.includes("Fog")) return "Avoid spraying; monitor for fungal growth.";
+      return "Conditions are moderate. Proceed with light irrigation.";
+    }
+  </script>
+  <!-- Floating Chatbot Widget -->
+<div id="chatWidget" class="chat-widget">
+  <div id="chatHeader" class="chat-header">
+    🤖 Farm Assistant
+    <span id="closeChat" class="close-chat">&times;</span>
+  </div>
+  <div id="chatContent" class="chat-content">
+    <div id="chatBoxWidget" class="chat-box">
+      <div class="bot-message">Hello! I’m your Farm Assistant 🤖. How can I help you today?</div>
+    </div>
+    <div class="quick-suggestions">
+      <button class="suggestion-btn">Weather</button>
+      <button class="suggestion-btn">Crops</button>
+      <button class="suggestion-btn">Irrigation</button>
+      <button class="suggestion-btn">Schemes</button>
+      <button class="suggestion-btn">Pests/Disease</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInputWidget" placeholder="Ask me about crops, irrigation, weather, schemes...">
+      <button id="sendBtnWidget">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Button to open chat -->
+<button id="openChatBtn" class="open-chat-btn">💬 Chat</button>
+
+</body>
+</html>

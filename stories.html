@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Success Stories | Farmers & Rural Development</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1>🌾 Farmers & Rural Development</h1>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+    </div>
+    <img src="images/success.jpg" alt="Farmer success" class="banner-img">
+
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="farmers.html">Farmers</a>
+      <a href="schemes.html">Schemes</a>
+      <a href="market.html">Market</a>
+      <a href="advisory.html">Advisory</a>
+      <a href="issues.html">Issues</a>
+      <a href="weather.html">Weather</a>
+      <a href="stories.html">Stories</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>🏆 Farmer Success Stories</h2>
+      <p>Read and share real stories of progress and innovation by farmers.</p>
+
+      <div class="card">
+        <h3>Share Your Story</h3>
+        <input type="text" id="farmerName" placeholder="Your Name" />
+        <input type="text" id="storyTitle" placeholder="Story Title" />
+        <textarea id="storyText" placeholder="Write your story..." rows="5"></textarea>
+        <input type="file" id="storyImage" accept="image/*" />
+        <button id="saveStory">Submit Story</button>
+      </div>
+
+      <h3>🌱 Community Stories</h3>
+      <div id="storyList" class="story-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Farmers & Rural Development | Empowering Rural India</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Handle Success Story Submission
+    const saveBtn = document.getElementById('saveStory');
+    const storyList = document.getElementById('storyList');
+
+    function loadStories() {
+      const stories = JSON.parse(localStorage.getItem('farmerStories')) || [];
+      storyList.innerHTML = '';
+
+      stories.forEach(story => {
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.innerHTML = `
+          <img src="${story.image}" alt="${story.title}">
+          <h4>${story.title}</h4>
+          <p><strong>${story.name}</strong></p>
+          <p>${story.text}</p>
+        `;
+        storyList.appendChild(card);
+      });
+    }
+
+    saveBtn.addEventListener('click', () => {
+      const name = document.getElementById('farmerName').value.trim();
+      const title = document.getElementById('storyTitle').value.trim();
+      const text = document.getElementById('storyText').value.trim();
+      const imageFile = document.getElementById('storyImage').files[0];
+
+      if (!name || !title || !text) {
+        alert("Please fill all fields before submitting!");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imageData = reader.result;
+
+        const stories = JSON.parse(localStorage.getItem('farmerStories')) || [];
+        stories.push({ name, title, text, image: imageData });
+        localStorage.setItem('farmerStories', JSON.stringify(stories));
+
+        document.getElementById('farmerName').value = '';
+        document.getElementById('storyTitle').value = '';
+        document.getElementById('storyText').value = '';
+        document.getElementById('storyImage').value = '';
+
+        loadStories();
+        alert("Story added successfully!");
+      };
+      if (imageFile) reader.readAsDataURL(imageFile);
+      else {
+        const stories = JSON.parse(localStorage.getItem('farmerStories')) || [];
+        stories.push({ name, title, text, image: 'https://via.placeholder.com/200x150?text=No+Image' });
+        localStorage.setItem('farmerStories', JSON.stringify(stories));
+        loadStories();
+        alert("Story added successfully!");
+      }
+    });
+
+    loadStories();
+  </script>
+  <!-- Floating Chatbot Widget -->
+<div id="chatWidget" class="chat-widget">
+  <div id="chatHeader" class="chat-header">
+    🤖 Farm Assistant
+    <span id="closeChat" class="close-chat">&times;</span>
+  </div>
+  <div id="chatContent" class="chat-content">
+    <div id="chatBoxWidget" class="chat-box">
+      <div class="bot-message">Hello! I’m your Farm Assistant 🤖. How can I help you today?</div>
+    </div>
+    <div class="quick-suggestions">
+      <button class="suggestion-btn">Weather</button>
+      <button class="suggestion-btn">Crops</button>
+      <button class="suggestion-btn">Irrigation</button>
+      <button class="suggestion-btn">Schemes</button>
+      <button class="suggestion-btn">Pests/Disease</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInputWidget" placeholder="Ask me about crops, irrigation, weather, schemes...">
+      <button id="sendBtnWidget">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Button to open chat -->
+<button id="openChatBtn" class="open-chat-btn">💬 Chat</button>
+
+</body>
+</html>

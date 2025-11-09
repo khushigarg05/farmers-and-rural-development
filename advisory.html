@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Advisory</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <h1>🌱 Smart Crop Advisory</h1>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+  <section class="tips-card">
+  <h2>🌾 Farming Tip of the Day</h2>
+  <p id="tipText"></p>
+</section>
+
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="farmers.html">Farmers</a>
+    <a href="schemes.html">Schemes</a>
+    <a href="market.html">Market</a>
+    <a href="advisory.html">Advisory</a>
+    <a href="issues.html">Issues</a>
+    <a href="weather.html">Weather</a>
+    <a href="stories.html">Stories</a>
+
+
+  </nav>
+</header>
+
+
+  <section>
+    <h2>Find the Best Crop for Your Land</h2>
+    <form id="advisoryForm">
+      <label>Choose Season:</label>
+      <select id="season" required>
+        <option value="">-- Select --</option>
+        <option value="summer">Summer</option>
+        <option value="monsoon">Monsoon</option>
+        <option value="winter">Winter</option>
+      </select>
+
+      <label>Choose Soil Type:</label>
+      <select id="soil" required>
+        <option value="">-- Select --</option>
+        <option value="clay">Clay</option>
+        <option value="sandy">Sandy</option>
+        <option value="loamy">Loamy</option>
+        <option value="black">Black</option>
+      </select>
+
+      <button type="submit">Get Advice</button>
+    </form>
+
+    <div id="adviceResult" class="result-card"></div>
+  </section>
+
+  <script src="script.js"></script>
+ <!-- Floating Chatbot Widget -->
+<div id="chatWidget" class="chat-widget">
+  <div id="chatHeader" class="chat-header">
+    🤖 Farm Assistant
+    <span id="closeChat" class="close-chat">&times;</span>
+  </div>
+  <div class="chat-content">
+    <div id="chatBoxWidget" class="chat-box">
+      <div class="bot-message">Hello! I’m your Farm Assistant 🤖. How can I help you today?</div>
+    </div>
+    <div class="quick-suggestions">
+      <button class="suggestion-btn">Weather</button>
+      <button class="suggestion-btn">Crops</button>
+      <button class="suggestion-btn">Irrigation</button>
+      <button class="suggestion-btn">Schemes</button>
+      <button class="suggestion-btn">Pests/Disease</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInputWidget" placeholder="Ask me about crops, irrigation, weather, schemes...">
+      <button id="sendBtnWidget">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Button to open chat -->
+<button id="openChatBtn" class="open-chat-btn">💬</button>
+
+</body>
+</html>

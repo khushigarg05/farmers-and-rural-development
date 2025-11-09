@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farmers & Rural Development Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="floating-bg">
+  <span>🍃</span>
+  <span>☁️</span>
+  <span>🌿</span>
+  <span>🍃</span>
+  <span>☁️</span>
+</div>
+
+  <header>
+  <div class="nav-container">
+    <h1>🌾 Farmers & Rural Development</h1>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+  <section class="hero">
+  <img src="images/hero-farm.jpg" alt="Farm field" class="hero-img" />
+  <div class="hero-text">
+    <h2>Empowering Rural India 🌿</h2>
+    <p>Bringing technology, awareness, and innovation to every farmer’s field.</p>
+    <a href="farmers.html" class="btn">Explore Farmers’ Stories</a>
+  </div>
+</section>
+<section class="quote-section">
+  <h2>🌱 Daily Motivation for Farmers</h2>
+  <p id="quoteText">"Agriculture is the backbone of our nation."</p>
+</section>
+
+
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="farmers.html">Farmers</a>
+    <a href="schemes.html">Schemes</a>
+    <a href="market.html">Market</a>
+    <a href="advisory.html">Advisory</a>
+    <a href="issues.html">Issues</a>
+    <a href="weather.html">Weather</a>
+    <a href="stories.html">Stories</a>
+
+
+  </nav>
+</header>
+
+
+  <section class="hero">
+    <h2>Empowering Farmers, Strengthening Rural India</h2>
+    <p>Access schemes, track market prices, and get crop advice to increase productivity and sustainability.</p>
+    <button onclick="window.location.href='farmers.html'">Get Started</button>
+  </section>
+
+  <section class="features">
+    <div class="card">
+      <h3>👨‍🌾 Farmer Registration</h3>
+      <p>Connect farmers across villages and share their agricultural knowledge.</p>
+    </div>
+    <div class="card">
+      <h3>💰 Market Prices</h3>
+      <p>Stay updated with daily mandi prices and sell at the best rates.</p>
+    </div>
+    <div class="card">
+      <h3>🌱 Crop Advisory</h3>
+      <p>Get recommendations based on season and soil to maximize yield.</p>
+    </div>
+  </section>
+
+  <footer>© 2025 RuralConnect | Designed for Farmer Empowerment</footer>
+  <!-- Floating Chatbot Widget -->
+<div id="chatWidget" class="chat-widget">
+  <div id="chatHeader" class="chat-header">
+    🤖 Farm Assistant
+    <span id="closeChat" class="close-chat">&times;</span>
+  </div>
+  <div id="chatContent" class="chat-content">
+    <div id="chatBoxWidget" class="chat-box">
+      <div class="bot-message">Hello! I’m your Farm Assistant 🤖. How can I help you today?</div>
+    </div>
+    <div class="quick-suggestions">
+      <button class="suggestion-btn">Weather</button>
+      <button class="suggestion-btn">Crops</button>
+      <button class="suggestion-btn">Irrigation</button>
+      <button class="suggestion-btn">Schemes</button>
+      <button class="suggestion-btn">Pests/Disease</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInputWidget" placeholder="Ask me about crops, irrigation, weather, schemes...">
+      <button id="sendBtnWidget">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Button to open chat -->
+<button id="openChatBtn" class="open-chat-btn">💬 Chat</button>
+
+</body>
+</html>
